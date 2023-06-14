@@ -1,0 +1,8 @@
+/Users/s.kompaneytseva/projects/final_sprint_7/src/main/java/ru/praktikum/qa_scooter/api/model/Order.java
+/Users/s.kompaneytseva/projects/final_sprint_7/src/main/java/ru/praktikum/qa_scooter/api/util/OrderGenerator.java
+/Users/s.kompaneytseva/projects/final_sprint_7/src/main/java/ru/praktikum/qa_scooter/api/client/RestClient.java
+/Users/s.kompaneytseva/projects/final_sprint_7/src/main/java/ru/praktikum/qa_scooter/api/model/CourierCredentials.java
+/Users/s.kompaneytseva/projects/final_sprint_7/src/main/java/ru/praktikum/qa_scooter/api/util/CourierGenerator.java
+/Users/s.kompaneytseva/projects/final_sprint_7/src/main/java/ru/praktikum/qa_scooter/api/client/OrderClient.java
+/Users/s.kompaneytseva/projects/final_sprint_7/src/main/java/ru/praktikum/qa_scooter/api/model/Courier.java
+/Users/s.kompaneytseva/projects/final_sprint_7/src/main/java/ru/praktikum/qa_scooter/api/client/CourierClient.java

@@ -1,0 +1,8 @@
+ru/praktikum/qa_scooter/api/util/CourierGenerator.class
+ru/praktikum/qa_scooter/api/model/Courier.class
+ru/praktikum/qa_scooter/api/client/CourierClient.class
+ru/praktikum/qa_scooter/api/model/CourierCredentials.class
+ru/praktikum/qa_scooter/api/client/RestClient.class
+ru/praktikum/qa_scooter/api/util/OrderGenerator.class
+ru/praktikum/qa_scooter/api/model/Order.class
+ru/praktikum/qa_scooter/api/client/OrderClient.class

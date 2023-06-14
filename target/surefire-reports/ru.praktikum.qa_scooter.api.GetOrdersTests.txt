@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ru.praktikum.qa_scooter.api.GetOrdersTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.678 s - in ru.praktikum.qa_scooter.api.GetOrdersTests
