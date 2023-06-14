@@ -49,9 +49,11 @@ public class CreateOrderTests {
         //создаем заказ
         ValidatableResponse response = orderClient.create(order);
         int statusCode = response.extract().statusCode();
+
+        orderTrack = response.extract().path("track");
+
         //провреяем статус код
         assertEquals("Некорректный статус код", 201, statusCode);
-        orderTrack = response.extract().path("track");
         //проверяем, что track заказа не равен нулю
         assertNotNull("Значение track пустое", orderTrack);
     }

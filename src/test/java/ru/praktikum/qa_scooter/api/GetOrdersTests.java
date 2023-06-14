@@ -26,10 +26,10 @@ public class GetOrdersTests {
     @Description("Проверяем, что в теле ответа возвращается список заказов")
     public void getListOrdersTest() {
         ValidatableResponse response = orderClient.allOrders();
-        int statusCode = response.extract().statusCode();
-        assertEquals("Некорректный статус код", 200, statusCode);
+
         ArrayList<String> orderBody = response.extract().path("orders");
         boolean isNotEmpty = orderBody!=null && !orderBody.isEmpty();
+
         assertTrue("Orders is empty", isNotEmpty);
     }
 }

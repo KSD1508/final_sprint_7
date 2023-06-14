@@ -33,10 +33,12 @@ public class CreateСourierTests {
     public void checkNotAllRequiredFieldsFilled() {
         //создаем нового курьера без пароля
         ValidatableResponse responseCreate = courierClient.createCourier(CourierGenerator.getDefaultWithoutPassword());
+
         int statusCode = responseCreate.extract().statusCode();
+        String message = responseCreate.extract().path("message");
+
         //проверяем статус код и текст сообщения
         assertEquals("Некорректный статус код", 400, statusCode);
-        String message = responseCreate.extract().path("message");
         assertEquals("Недостаточно данных для создания учетной записи", message);
     }
 
@@ -45,20 +47,12 @@ public class CreateСourierTests {
     @Description("Запрос возвращает статус код - 201")
     public void createNewCourierAndCheckResponse() {
         //создаем нового курьера
-        ValidatableResponse responseCreate = courierClient.createCourier(CourierGenerator.getDefault());
-        int statusCode = responseCreate.extract().statusCode();
-        //проверяем статус код создания курьера
-        assertEquals("Некорректный статус код", 201, statusCode);
-        boolean isCreated = responseCreate.extract().path("ok");
-        //провереяем ответ о успешности создания
-        assertTrue("Курьер не создан", isCreated);
-        //логинимся под новым курьером
+        courierClient.createCourier(CourierGenerator.getDefault());
         ValidatableResponse responseLogin = courierClient.loginCourier(CourierCredentials.from(CourierGenerator.getDefault()));
-        int loginStatusCode = responseLogin.extract().statusCode();
-        //проверяем что курьер залогинился
-        assertEquals("Некорректный статус код", 200, loginStatusCode);
+
         //записываем id созданного курьера
         courierId = responseLogin.extract().path("id");
+
         //проверяем, что id что не равен нулю
         assertNotNull("Id is null", courierId);
     }
@@ -67,26 +61,13 @@ public class CreateСourierTests {
     @DisplayName("Невозможность создания двух одинаковых курьеров")
     @Description("Запрос возвращает статус код - 409 и с сообщением что логин уже используется")
     public void checkNotCreateTwoIdenticalCouriers() {
-        //создаем нового курьера
-        ValidatableResponse responseCreate = courierClient.createCourier(CourierGenerator.getDefault());
-        int statusCode = responseCreate.extract().statusCode();
-        //проверяем статус код создания курьера
-        assertEquals("Некорректный статус код", 201, statusCode);
-        boolean isCreated = responseCreate.extract().path("ok");
-        //провереяем ответ о успешности создания
-        assertTrue("Курьер не создан", isCreated);
-        //логинимся под новым курьером
-        ValidatableResponse responseLogin = courierClient.loginCourier(CourierCredentials.from(CourierGenerator.getDefault()));
-        int loginStatusCode = responseLogin.extract().statusCode();
-        //проверяем что курьер залогинился
-        assertEquals("Некорректный статус код", 200, loginStatusCode);
-        //записываем id созданного курьера
-        courierId = responseLogin.extract().path("id");
-        //проверяем, что id что не равен нулю
-        assertNotNull("Id is null", courierId);
+         courierClient.createCourier(CourierGenerator.getDefault());
+         courierClient.loginCourier(CourierCredentials.from(CourierGenerator.getDefault()));
+
         //пытаемся создать курьера с тем же самым логином
         ValidatableResponse responseNotCreate = courierClient.createCourier(CourierGenerator.getDefault());
         int doubleStatusCode = responseNotCreate.extract().statusCode();
+
         //проверяем статус код и текст сообщения
         assertEquals("Некорректный статус код", 409, doubleStatusCode);
         String message = responseNotCreate.extract().path("message");

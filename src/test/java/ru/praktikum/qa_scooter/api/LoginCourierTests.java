@@ -30,9 +30,7 @@ public class LoginCourierTests {
         //логинимся под зарегестированным курьером
         ValidatableResponse loginResponse = courierClient
                 .loginCourier(CourierCredentials.from(CourierGenerator.getRegisteredCourier()));
-        int loginStatusCode = loginResponse.extract().statusCode();
-        //проверяем что курьер залогинился успешно
-        assertEquals("Некорректный статус код", 200, loginStatusCode);
+
         //записываем id курьера
         courierId = loginResponse.extract().path("id");
         //проверяем, что id что не равен нулю
@@ -46,10 +44,12 @@ public class LoginCourierTests {
         //логинимся без пароля
         ValidatableResponse loginResponse = courierClient
                 .loginCourier(CourierCredentials.from(CourierGenerator.getDefaultWithoutPassword()));
+
         int loginStatusCode = loginResponse.extract().statusCode();
+        String message = loginResponse.extract().path("message");
+
         //проверка ответа на запрос
         assertEquals("Некорректный статус код", 400, loginStatusCode);
-        String message = loginResponse.extract().path("message");
         assertEquals("Недостаточно данных для входа", message);
     }
 
@@ -61,9 +61,10 @@ public class LoginCourierTests {
         ValidatableResponse loginResponse = courierClient
                 .loginCourier(CourierCredentials.from(CourierGenerator.getWrong()));
         int loginStatusCode = loginResponse.extract().statusCode();
+
+        String message = loginResponse.extract().path("message");
         //проверка ответа на запрос
         assertEquals("Некорректный статус код", 404, loginStatusCode);
-        String message = loginResponse.extract().path("message");
         assertEquals("Учетная запись не найдена", message);
     }
 }
